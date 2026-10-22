@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Design Document"
+  short_description: "集中创建和维护已确定的具体设计。"
+  default_prompt: "按设计目录 README 的权责与索引规则，把已确定设计落盘并消除重复口径。"

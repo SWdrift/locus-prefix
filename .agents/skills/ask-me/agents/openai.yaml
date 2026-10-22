@@ -1,0 +1,4 @@
+interface:
+  display_name: "ask me"
+  short_description: "通过成组中文提问澄清计划、决策、想法与关键取舍"
+  default_prompt: "使用 $ask-me 通过多个中文问题帮我理清这个方案。"

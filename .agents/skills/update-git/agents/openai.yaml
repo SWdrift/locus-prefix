@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Git"
+  short_description: "按项目约定提交本次会话或指定任务改动。"
+  default_prompt: "使用 $update-git 检查当前 Git 状态并按约定提交。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create ADR"
+  short_description: "创建和维护面向 agent 执行的 Architecture Decision Records。"
+  default_prompt: "使用 $create-adr 捕获决策意图，并创建或更新面向 agent 执行的 ADR。"

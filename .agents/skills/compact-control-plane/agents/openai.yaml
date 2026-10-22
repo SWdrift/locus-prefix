@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compact Control Plane"
+  short_description: "精简控制平面动态任务区，并保留仍有效的长期规则。"
+  default_prompt: "在阶段完成、任务收尾或控制平面上下文膨胀时，精简相关控制平面并沉淀可复用规则。"

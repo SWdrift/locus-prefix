@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Smell Guard"
+  short_description: "在编码、评审和重构前识别当前改动引入或加重的经典 Code Smells。"
+  default_prompt: "在本次代码任务中使用 code-smell-guard，识别可能引入或加重的经典 Code Smells，并给出最小修复建议。"

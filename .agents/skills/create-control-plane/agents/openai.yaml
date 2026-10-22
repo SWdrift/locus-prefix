@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Control Plane"
+  short_description: "按 cp-meta 约定创建或更新项目控制平面。"
+  default_prompt: "按项目 cp-meta 约定创建或更新控制平面，并先核对需求与代码事实边界。"
