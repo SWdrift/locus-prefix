@@ -23,6 +23,21 @@ CLI 的 list/show/run 输出 JSON；任务开始前被拒绝或请求无效时�
 
 默认不会自动授权：权限用重复的 `--grant` 指定，允许的副作用用重复的 `--allow` 指定。`workspace.check` 的 script 来自当前 `package.json`，不是任意 shell 命令参数。脚本本身仍然是可信代码，可调用外部工具并产生其他副作用；授权不是 OS 级权限控制，不能阻止脚本越界。
 
+## CI/CD：运行标签相同，实际构建就正确吗？
+
+新增的完整实验回答这个问题，而不是只运行健康检查。需要本机 Git：
+
+```sh
+pnpm demo:release
+pnpm locus show deployment.audit
+```
+
+演示用真实 Git 提交、文件交付和本机 HTTP 目标复现：事件指向 A，实际构建工作树为 B，标签和健康仍能全绿；构建现场见证会拒绝该结果。干净检出 A 重建后通过，再将同一制品交付另一角色并重新观测。
+
+这是单机角色模拟，不是跨物理机器部署。实际只读调查只有版本元数据、没有完整源码/制品见证时，返回 `incomplete`，不声称现场已经部署错。具体操作接口见[部署审计包](packages/deployment-audit/README.md)，证据和错误结论见[结论5](documents/conclusions/5-release-lineage.md)。
+
+任务 `deployment.audit` 的输入为期望版本、运行元数据 URL、可选制品见证与 payload URL；需要 `--grant deployment:inspect --allow network:read`。审计任务执行成功不等于允许发布，应读取 `value.assessment.verdict`。公开材料不保存真实工程名称、地址或私有身份映射。
+
 ## 添加任务
 
 根目录 `locus.tasks.js` 是显式组合入口，default export 一个 `({ root }) => definitions` 函数。CLI 以当前工作目录为 root，读取其中的同名模块；模块可使用已有包或直接组合普通函数，不需要修改 CLI。
@@ -53,9 +68,11 @@ export default ({ root }) => [
 
 - [`@locus/tasks`](packages/tasks/README.md)：描述发现、显式授权、单次执行与步骤结果。
 - [`@locus/workspace`](packages/workspace/README.md)：读取真实配置、通过 pnpm 运行现有脚本、保留执行证据。
+- [`@locus/deployment-audit`](packages/deployment-audit/README.md)：发布源码绑定、内容证据及缺证据判定。
 - [`tests/4-task-execution/`](tests/4-task-execution/demo.test.js)：调用边界与部分成功。
 - [`tests/5-workspace-integration/`](tests/5-workspace-integration/demo.test.js)：真实配置和子进程，以及配置变化。
 - [`tests/6-cli/`](tests/6-cli/demo.test.js)：实际 CLI 的发现、拒绝、失败、修正和新增任务。
-- [案例 A](documents/cases/1-heterogeneous-engineering-workspace.md)：长期问题域。
+- [`tests/8-http-evidence/`](tests/8-http-evidence/demo.test.js)、[`9-release-contract/`](tests/9-release-contract/demo.test.js)、[`10-source-binding/`](tests/10-source-binding/demo.test.js)：取证、判定与完整交付反例。
+- [案例1](documents/cases/1-heterogeneous-engineering-workspace.md)：长期问题域。
 
 历史 `src/` 与实验 1–3 保留为第一轮基线；新包不是它们的兼容层。尚未证明的共享机制不提炼为 Core。当前不提供自动重试、自动补偿、断点续跑或永久执行历史。

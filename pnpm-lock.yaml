@@ -8,12 +8,17 @@ importers:
 
   .:
     dependencies:
+      '@locus/deployment-audit':
+        specifier: workspace:*
+        version: link:packages/deployment-audit
       '@locus/tasks':
         specifier: workspace:*
         version: link:packages/tasks
       '@locus/workspace':
         specifier: workspace:*
         version: link:packages/workspace
+
+  packages/deployment-audit: {}
 
   packages/tasks: {}
 

@@ -1,0 +1,55 @@
+{
+  "kind": "anonymized-private-observation",
+  "observedAt": "2026-10-22T08:23:20.571Z",
+  "roles": {
+    "project": "project-a",
+    "build": "builder-a",
+    "runtime": "target-b",
+    "release": "release-a"
+  },
+  "selection": "Audit of the release claimed by the target; the operator intended release was not independently supplied.",
+  "observations": {
+    "ciRunCompletedSuccessfully": true,
+    "runtimeClaimMatchesTagCommit": true,
+    "workflowBuildsFixedWorkspace": true,
+    "sourceMetadataComesFromTrigger": true,
+    "buildSiteWitnessRetrieved": false,
+    "artifactPayloadRetrieved": false,
+    "deployedPayloadRetrieved": false
+  },
+  "assessment": {
+    "verdict": "incomplete",
+    "checks": [
+      {
+        "id": "release-label",
+        "status": "unknown",
+        "reason": "Cannot establish release labels: no valid evidence for artifact.",
+        "nextAction": "Collect the release label from the artifact and from the running target directly; do not fill the gap from the expected value. No automatic retry or deployment is performed."
+      },
+      {
+        "id": "declared-source",
+        "status": "unknown",
+        "reason": "Cannot establish declared source revisions: no valid evidence for artifact.",
+        "nextAction": "Read the declared source revision from the artifact metadata and from the running target; do not substitute another declaration or the expected value."
+      },
+      {
+        "id": "build-source",
+        "status": "unknown",
+        "reason": "No build-site witness was supplied; a declared source revision is not evidence of what was actually built.",
+        "nextAction": "Capture the revision checked out at the build site and an explicit dirty state (false means a clean tree). Do not substitute the declared source revision for the build witness."
+      },
+      {
+        "id": "payload-binding",
+        "status": "unknown",
+        "reason": "Cannot bind the artifact payload to the deployed payload: no valid artifact payload SHA-256 or runtime payload SHA-256.",
+        "nextAction": "Compute SHA-256 over the actual artifact payload bytes and over the deployed file bytes. Do not copy a hash from release metadata or use a label hash as a substitute."
+      }
+    ]
+  },
+  "evidenceLimits": [
+    "Raw project identities, addresses, tags and revisions are not published.",
+    "Private CI/source observations cannot be independently reproduced from this public snapshot.",
+    "No evidence establishes that the actual deployment was built from the wrong source.",
+    "No production state was changed."
+  ]
+}

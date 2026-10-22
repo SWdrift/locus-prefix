@@ -6,9 +6,11 @@
   "scripts": {
     "test": "node --test",
     "check:baseline": "node --test tests/1-id/demo.test.js tests/2-ops/demo.test.js tests/3-exp/demo.test.js",
-    "locus": "node scripts/locus.js"
+    "locus": "node scripts/locus.js",
+    "demo:release": "node scripts/release-demo.js"
   },
   "dependencies": {
+    "@locus/deployment-audit": "workspace:*",
     "@locus/tasks": "workspace:*",
     "@locus/workspace": "workspace:*"
   }
