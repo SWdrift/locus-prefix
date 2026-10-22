@@ -6,4 +6,15 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      '@locus/tasks':
+        specifier: workspace:*
+        version: link:packages/tasks
+      '@locus/workspace':
+        specifier: workspace:*
+        version: link:packages/workspace
+
+  packages/tasks: {}
+
+  packages/workspace: {}
