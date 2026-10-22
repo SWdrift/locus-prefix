@@ -38,6 +38,20 @@ pnpm locus show deployment.audit
 
 任务 `deployment.audit` 的输入为期望版本、运行元数据 URL、可选制品见证与 payload URL；需要 `--grant deployment:inspect --allow network:read`。审计任务执行成功不等于允许发布，应读取 `value.assessment.verdict`。公开材料不保存真实工程名称、地址或私有身份映射。
 
+## 全流程：交付、配置排障、真相更新
+
+```sh
+pnpm demo:operations
+```
+
+实际启动匿名的独立 Node 进程，完成 Git 构建、制品与配置交付、失败请求、证据辅助诊断、修正覆盖并重启、再验收。随后实际更新 Markdown 运行手册，保留错误判断，提交并克隆知识与证据；第二个实例从克隆后的文档检索并选择已验证的方法。
+
+演示输出 `artifactDirectory`：打开其中的 `knowledge/runbook.md`、`events.json` 和 `evidence/` 即可检查全链路。制品、目标配置和源码也保留在该目录下，所有子进程已停止；`temp/` 不进入 Git。自动测试使用独立目录并清理。
+
+当前是单机多进程、本地流水线，不是物理多机或生产发布。`environment.json` 是部署环境配置层，不代表验证了操作系统环境变量注入。诊断为可解释领域规则，证据哈希不是自动真理认证。
+
+参见[全流程结论](documents/conclusions/6-operations-truth-loop.md)与本次实际生成的[运行手册快照](documents/evidence/6-operations-loop/knowledge/runbook.md)。
+
 ## 添加任务
 
 根目录 `locus.tasks.js` 是显式组合入口，default export 一个 `({ root }) => definitions` 函数。CLI 以当前工作目录为 root，读取其中的同名模块；模块可使用已有包或直接组合普通函数，不需要修改 CLI。
@@ -69,10 +83,12 @@ export default ({ root }) => [
 - [`@locus/tasks`](packages/tasks/README.md)：描述发现、显式授权、单次执行与步骤结果。
 - [`@locus/workspace`](packages/workspace/README.md)：读取真实配置、通过 pnpm 运行现有脚本、保留执行证据。
 - [`@locus/deployment-audit`](packages/deployment-audit/README.md)：发布源码绑定、内容证据及缺证据判定。
+- [`@locus/operational-knowledge`](packages/operational-knowledge/README.md)：证据绑定的 Markdown 修正与有条件复用。
 - [`tests/4-task-execution/`](tests/4-task-execution/demo.test.js)：调用边界与部分成功。
 - [`tests/5-workspace-integration/`](tests/5-workspace-integration/demo.test.js)：真实配置和子进程，以及配置变化。
 - [`tests/6-cli/`](tests/6-cli/demo.test.js)：实际 CLI 的发现、拒绝、失败、修正和新增任务。
 - [`tests/8-http-evidence/`](tests/8-http-evidence/demo.test.js)、[`9-release-contract/`](tests/9-release-contract/demo.test.js)、[`10-source-binding/`](tests/10-source-binding/demo.test.js)：取证、判定与完整交付反例。
+- [`tests/11-operations-loop/`](tests/11-operations-loop/demo.test.js)、[`12-evidence-notebook/`](tests/12-evidence-notebook/demo.test.js)：基础设施到 debug、实际文档修正及知识复用。
 - [案例1](documents/cases/1-heterogeneous-engineering-workspace.md)：长期问题域。
 
 历史 `src/` 与实验 1–3 保留为第一轮基线；新包不是它们的兼容层。尚未证明的共享机制不提炼为 Core。当前不提供自动重试、自动补偿、断点续跑或永久执行历史。

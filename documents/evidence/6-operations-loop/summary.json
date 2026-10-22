@@ -1,0 +1,18 @@
+{
+  "scope": "单机多进程角色；本地真实Git、文件、HTTP与Markdown，非生产部署或物理多机证明。",
+  "artifactDirectory": "temp/operations-loop-GkE0CW",
+  "artifactsRetained": true,
+  "initialRequestStatus": 502,
+  "releaseAudit": "consistent",
+  "diagnosis": "environment-shadowing",
+  "requestAfterFileEdit": 502,
+  "requestAfterRestart": 200,
+  "repaired": true,
+  "knowledgeDocument": "knowledge/runbook.md",
+  "knowledgeReused": true,
+  "knowledgeSurvivedGitCheckout": true,
+  "changedArtifactInvalidatesKnowledge": true,
+  "resourcesStopped": true,
+  "buildExecutions": 1,
+  "activeBackendDebugProbes": 1
+}

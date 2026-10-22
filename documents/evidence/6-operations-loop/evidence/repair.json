@@ -1,0 +1,107 @@
+{
+  "beforeRestart": {
+    "role": "gateway-a",
+    "instanceId": "38c67548-b856-4c19-b939-31b6ebec56c8",
+    "health": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "service": "gateway-a",
+        "instanceId": "38c67548-b856-4c19-b939-31b6ebec56c8"
+      }
+    },
+    "runtime": {
+      "release": "release-a",
+      "sourceRevision": "49673f19f5f0b1f9acaf11c83d0f037aca7edcf2",
+      "payloadSha256": "cd86f82e5e8ef789fd24576dcc58c3c3e3044692236a209e388570532f86a00a"
+    },
+    "request": {
+      "status": 502,
+      "body": {
+        "status": "failed",
+        "upstreamStatus": 410,
+        "upstream": {
+          "service": "backend-retired",
+          "status": "retired"
+        }
+      }
+    },
+    "configuration": {
+      "fileUpstreamUrl": "http://127.0.0.1:61660",
+      "effectiveUpstreamUrl": "http://127.0.0.1:61661",
+      "source": "environment",
+      "configSha256": "8b74c50719ce357c2203ec6631017fba27ad79ce8f8602338fb535733d75f119",
+      "model": "environment-over-file-at-startup-v1"
+    }
+  },
+  "afterRestart": {
+    "role": "gateway-a",
+    "instanceId": "3bf3ecff-63a7-4051-b623-9934399017e6",
+    "health": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "service": "gateway-a",
+        "instanceId": "3bf3ecff-63a7-4051-b623-9934399017e6"
+      }
+    },
+    "runtime": {
+      "release": "release-a",
+      "sourceRevision": "49673f19f5f0b1f9acaf11c83d0f037aca7edcf2",
+      "payloadSha256": "cd86f82e5e8ef789fd24576dcc58c3c3e3044692236a209e388570532f86a00a"
+    },
+    "request": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "upstreamStatus": 200,
+        "upstream": {
+          "service": "backend-a",
+          "value": "ready"
+        }
+      }
+    },
+    "configuration": {
+      "fileUpstreamUrl": "http://127.0.0.1:61660",
+      "effectiveUpstreamUrl": "http://127.0.0.1:61660",
+      "source": "file",
+      "configSha256": "8b74c50719ce357c2203ec6631017fba27ad79ce8f8602338fb535733d75f119",
+      "model": "environment-over-file-at-startup-v1"
+    }
+  },
+  "lineage": {
+    "verdict": "consistent",
+    "checks": [
+      {
+        "id": "release-label",
+        "status": "pass",
+        "reason": "Release labels agree across the expected, artifact, and runtime observations.",
+        "nextAction": null
+      },
+      {
+        "id": "declared-source",
+        "status": "pass",
+        "reason": "Declared source revisions agree across the expected, artifact, and runtime observations.",
+        "nextAction": null
+      },
+      {
+        "id": "build-source",
+        "status": "pass",
+        "reason": "The build-site witness reports the expected revision from an explicitly clean working tree.",
+        "nextAction": null
+      },
+      {
+        "id": "payload-binding",
+        "status": "pass",
+        "reason": "The artifact payload and the runtime payload have the same SHA-256.",
+        "nextAction": null
+      }
+    ]
+  },
+  "confirmation": {
+    "operation": "clear-environment-override-and-restart",
+    "sameArtifact": true,
+    "requestBefore": 502,
+    "requestAfter": 200
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "registered": [
+    {
+      "role": "backend-a",
+      "instanceId": "c808c8cb-601c-4ca8-b1cb-4f4d3a26f865",
+      "url": "http://127.0.0.1:61660",
+      "state": "running"
+    },
+    {
+      "role": "backend-retired",
+      "instanceId": "a8dc0d4f-b65e-42ad-ad2f-d2fe05b4e342",
+      "url": "http://127.0.0.1:61661",
+      "state": "running"
+    },
+    {
+      "role": "gateway-a",
+      "instanceId": "38c67548-b856-4c19-b939-31b6ebec56c8",
+      "url": "http://127.0.0.1:61662",
+      "state": "running"
+    }
+  ],
+  "beforeClose": [
+    {
+      "role": "backend-a",
+      "instanceId": "c808c8cb-601c-4ca8-b1cb-4f4d3a26f865",
+      "url": "http://127.0.0.1:61660",
+      "state": "running"
+    },
+    {
+      "role": "backend-retired",
+      "instanceId": "a8dc0d4f-b65e-42ad-ad2f-d2fe05b4e342",
+      "url": "http://127.0.0.1:61661",
+      "state": "running"
+    },
+    {
+      "role": "gateway-a",
+      "instanceId": "3bf3ecff-63a7-4051-b623-9934399017e6",
+      "url": "http://127.0.0.1:50244",
+      "state": "running"
+    },
+    {
+      "role": "gateway-b",
+      "instanceId": "1efdb608-5687-4ca1-9224-3a6c4274f321",
+      "url": "http://127.0.0.1:61353",
+      "state": "running"
+    }
+  ],
+  "afterClose": [
+    {
+      "role": "backend-a",
+      "instanceId": "c808c8cb-601c-4ca8-b1cb-4f4d3a26f865",
+      "url": "http://127.0.0.1:61660",
+      "state": "stopped"
+    },
+    {
+      "role": "backend-retired",
+      "instanceId": "a8dc0d4f-b65e-42ad-ad2f-d2fe05b4e342",
+      "url": "http://127.0.0.1:61661",
+      "state": "stopped"
+    },
+    {
+      "role": "gateway-a",
+      "instanceId": "3bf3ecff-63a7-4051-b623-9934399017e6",
+      "url": "http://127.0.0.1:50244",
+      "state": "stopped"
+    },
+    {
+      "role": "gateway-b",
+      "instanceId": "1efdb608-5687-4ca1-9224-3a6c4274f321",
+      "url": "http://127.0.0.1:61353",
+      "state": "stopped"
+    }
+  ]
+}

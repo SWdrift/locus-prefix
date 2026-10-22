@@ -11,6 +11,9 @@ importers:
       '@locus/deployment-audit':
         specifier: workspace:*
         version: link:packages/deployment-audit
+      '@locus/operational-knowledge':
+        specifier: workspace:*
+        version: link:packages/operational-knowledge
       '@locus/tasks':
         specifier: workspace:*
         version: link:packages/tasks
@@ -19,6 +22,8 @@ importers:
         version: link:packages/workspace
 
   packages/deployment-audit: {}
+
+  packages/operational-knowledge: {}
 
   packages/tasks: {}
 
