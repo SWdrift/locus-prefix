@@ -1,0 +1,9 @@
+{
+  "name": "locus-prefix-experiment",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.24.0",
+  "scripts": {
+    "test": "node --test"
+  }
+}
