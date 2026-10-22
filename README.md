@@ -92,3 +92,13 @@ export default ({ root }) => [
 - [案例1](documents/cases/1-heterogeneous-engineering-workspace.md)：长期问题域。
 
 历史 `src/` 与实验 1–3 保留为第一轮基线；新包不是它们的兼容层。尚未证明的共享机制不提炼为 Core。当前不提供自动重试、自动补偿、断点续跑或永久执行历史。
+
+## API 表达与演化研究
+
+[消费端研究记录](documents/api-expression-study.md)从原生基线出发，比较函数说明、显式观测与动态投影，包含先设计的完整草案、共同变化推演和实际成本。[实验13](tests/13-api-expression/demo.test.js)复用既有设施，检验连接/实例替换、旧证据、闭包依赖和相反知识：
+
+```sh
+node tests/13-api-expression/scenario.js
+```
+
+场景输出保留证据的工作区临时目录，进程结束时均停止。本轮[结论7](documents/conclusions/7-api-expression.md)没有选定新架构：原生模块足以复用组合，显式观测边界可检查部分错归，但尚无证据支持新增通用Core；原有实现未重构。
