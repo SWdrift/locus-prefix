@@ -1,6 +1,6 @@
 # Locus Prefix
 
-通过真实工程任务验证 JS/TS 元机制。当前可用入口是一个显式模块驱动的本地任务工作台，不是插件框架或安全沙箱。
+研究异构事物的共在与流畅，不预设必须由 JS/TS、统一 API 或独立 Core 实现。历史工程入口是显式模块驱动的本地任务工作台，不是插件框架或安全沙箱。
 
 ## 运行
 
@@ -116,3 +116,23 @@ node tests/14-workspace-evolution/scenario.js
 CLI保留工作区内临时证据目录，结束时关闭全部实验资源。旧A/A、新B/B与新期望/旧运行分别判断；知识失效或冲突会实际阻止动作；交接包整体失败时保留其他设施证据。GIS是生成地图的本机协议替身，不是生产或物理多机验证。
 
 参见[演化记录](documents/workspace-evolution.md)、[成本审查](documents/evidence/9-workspace-evolution/cost-review.md)、[Agent发现记录](documents/evidence/9-workspace-evolution/agent-discovery.md)及[结论9](documents/conclusions/9-workspace-evolution.md)。本轮不发布新包或稳定通用Core。
+
+## 历史比较与根本假设挑战
+
+[研究总览](documents/paradigm-study.md)审查十项根本假设，比较无中心原生组合、因果协作、查询/变化驱动及外部执行引擎四种构想；[因果历史专题](documents/causal-history-study.md)与[执行/互操作专题](documents/execution-history-study.md)记录一手来源、历史背景、失败路线及组合边界。
+
+本阶段不扩建工作台。使用成熟 Automerge、Vue reactivity 与 Node 内置 SQLite 检验两个关键分歧：
+
+```sh
+pnpm install --offline --ignore-scripts --frozen-lockfile
+node --test tests/15-causal-history/demo.test.js tests/16-derived-decisions/demo.test.js
+node tests/16-derived-decisions/scenario.js
+```
+
+首次检出没有本地依赖缓存时，安装命令去掉 `--offline`。Node.js 24；实验依赖锁定于根 devDependencies。
+
+- [实验15](tests/15-causal-history/demo.test.js)：并发修订的因果历史、冲突与快照投影，不把收敛当作知识正确。
+- [实验16](tests/16-derived-decisions/demo.test.js)：原生重算、响应式派生与关系查询；显式演示图外失效和本地事务不覆盖独立执行器。
+- [结论10](documents/conclusions/10-semantic-boundaries.md)：新的候选路径是“可分叉探索与有界承诺分离”，不是新增通用对象模型。尚未证明独立框架必要，也未证明任一方案总体更优。
+
+旧实验、案例及结论保持原样；新文档通过链接限定旧判断，不把历史验证改写为本轮新证据。

@@ -1,0 +1,39 @@
+{
+  "dependencyInstall": {
+    "command": "pnpm install --offline --ignore-scripts --frozen-lockfile",
+    "exitCode": 0
+  },
+  "fullSuite": {
+    "command": "pnpm test",
+    "tests": 89,
+    "pass": 89,
+    "fail": 0,
+    "skipped": 0,
+    "durationMs": 12707.7798
+  },
+  "finalFocusedSuite": {
+    "command": "node --test tests/15-causal-history/demo.test.js tests/16-derived-decisions/demo.test.js",
+    "tests": 2,
+    "pass": 2,
+    "fail": 0,
+    "skipped": 0,
+    "durationMs": 251.3531,
+    "note": "Run after removing incidental assertions from experiment 15. No behavioral implementation changed after the full suite."
+  },
+  "smoke": {
+    "causalHistory": "Main thread imported and executed runCausalHistoryScenario; selected observations are in causal-history.json.",
+    "derivedDecisions": "Main thread ran node tests/16-derived-decisions/scenario.js; selected observations are in derived-decisions.json."
+  },
+  "documentation": {
+    "markdownFilesChecked": 5,
+    "localLinksChecked": 90,
+    "missingTargets": 0,
+    "undefinedReferenceLabels": 0,
+    "requiredConclusionFrontMatterKeysPresent": true,
+    "twoScenarioEvidenceJsonFilesParsed": true
+  },
+  "gitCommitCreatedAtVerification": false,
+  "reproductionTag": "10-semantic-boundaries",
+  "externalEnginesRun": [],
+  "scope": "Local Automerge/Vue/SQLite experiments only; Nix, Pulumi, Temporal, Goblins and MCP were literature research, not runtime verification."
+}

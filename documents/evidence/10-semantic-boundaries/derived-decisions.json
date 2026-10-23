@@ -1,0 +1,23 @@
+{
+  "command": "node tests/16-derived-decisions/scenario.js",
+  "node": "v24.19.0",
+  "vueReactivity": "3.5.44",
+  "sqliteVersion": "3.53.3",
+  "memory": {
+    "before": { "snapshot": true, "native": true, "reactive": true },
+    "after": { "snapshot": true, "native": false, "reactive": false }
+  },
+  "database": {
+    "before": { "query": ["repair"], "cached": ["repair"], "bridged": ["repair"] },
+    "after": { "query": [], "cached": ["repair"], "bridged": ["repair"] },
+    "afterIngestionSignal": []
+  },
+  "coordination": {
+    "writerBlocked": true,
+    "committedBeforeRefutation": 1,
+    "newIntentsAfterRefutation": 0,
+    "currentEligible": [],
+    "effectAfterRefutation": "executed:repair"
+  },
+  "scope": "Observed local two-connection SQLite and file actuator; not distributed authorization."
+}

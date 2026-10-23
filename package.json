@@ -15,5 +15,9 @@
     "@locus/operational-knowledge": "workspace:*",
     "@locus/tasks": "workspace:*",
     "@locus/workspace": "workspace:*"
+  },
+  "devDependencies": {
+    "@automerge/automerge": "3.5.0",
+    "@vue/reactivity": "3.5.44"
   }
 }

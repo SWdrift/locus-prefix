@@ -1,0 +1,60 @@
+{
+  "smokeInvocation": "Imported runCausalHistoryScenario with node --input-type=module and printed result slices.",
+  "reproduce": "node tests/15-causal-history/scenario.js",
+  "node": "v24.19.0",
+  "automerge": "3.5.0",
+  "snapshot": {
+    "wholeLwwConverged": true,
+    "fieldLwwConverged": true,
+    "retainedStatus": "verified",
+    "lostRefutationActor": "b1",
+    "lostRefutationReferenced": false,
+    "observations": 2
+  },
+  "sameKey": {
+    "mergeOrdersEqual": true,
+    "heads": 2,
+    "changes": 3,
+    "conflictFields": ["claim", "status", "evidence"],
+    "visible": {
+      "claim": "restart reverts startup override",
+      "status": "verified",
+      "evidence": "incident-42b",
+      "observations": 3
+    },
+    "structuralValidation": true,
+    "fixtureSemanticConsistency": false,
+    "naiveAllowed": true,
+    "auditedReason": "UNRESOLVED_CONFLICT"
+  },
+  "interval": {
+    "validFrom": 40,
+    "validUntil": 30,
+    "conflicts": [],
+    "validationReasons": ["EMPTY_INTERVAL"]
+  },
+  "persistence": {
+    "binaryHeadsPreserved": true,
+    "binaryConflictFields": 3,
+    "binaryCounterPreserved": true,
+    "jsonReimportChanges": 1,
+    "jsonReimportConflicts": 0,
+    "jsonReimportCounterPreserved": false,
+    "jsonReimportIncrementError": "TypeError",
+    "observedBinaryBytes": 794,
+    "observedJsonBytes": 160,
+    "notABenchmark": true
+  },
+  "missingKnowledge": {
+    "beforeMergeHeads": 1,
+    "beforeMergeConflicts": [],
+    "missingWithoutKnownRemoteHead": [],
+    "knownRemoteHeadReportedMissing": true
+  },
+  "actorSpoof": {
+    "selfDeclaredActor": "aa",
+    "allowlistPolicyAccepted": true,
+    "authenticated": false
+  },
+  "scope": "In-memory causal data and simulated action log; no actual restart or network synchronization. Hashes/timestamps omitted from this selected observation summary."
+}

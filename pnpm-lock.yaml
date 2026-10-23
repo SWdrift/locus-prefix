@@ -20,6 +20,13 @@ importers:
       '@locus/workspace':
         specifier: workspace:*
         version: link:packages/workspace
+    devDependencies:
+      '@automerge/automerge':
+        specifier: 3.5.0
+        version: 3.5.0
+      '@vue/reactivity':
+        specifier: 3.5.44
+        version: 3.5.44
 
   packages/deployment-audit: {}
 
@@ -28,3 +35,24 @@ importers:
   packages/tasks: {}
 
   packages/workspace: {}
+
+packages:
+
+  '@automerge/automerge@3.5.0':
+    resolution: {integrity: sha512-ejbqJWfXWM2QbTcUK/5ugYiQiyOP7LYVAp/RuSvthCc07oek0FClMxEuouuhjrLjVPDSI34RP1ftGc45PF7WRA==}
+
+  '@vue/reactivity@3.5.44':
+    resolution: {integrity: sha512-u+QJdKeBBEADkPdevsL+6E12QlYVfBD8Zcw5qjDQKtamI6l14KyqazJMobhCKelhWN5zpyKUiEDoTyHE93cqWw==}
+
+  '@vue/shared@3.5.44':
+    resolution: {integrity: sha512-H82XLH0DjmSOdbEwO15x3QTo1f5PWEtv237eLpYKc0mqLu+B8hnq16lFWmuBmNurkeiG3wr+oM1FhOll/YVFRg==}
+
+snapshots:
+
+  '@automerge/automerge@3.5.0': {}
+
+  '@vue/reactivity@3.5.44':
+    dependencies:
+      '@vue/shared': 3.5.44
+
+  '@vue/shared@3.5.44': {}
