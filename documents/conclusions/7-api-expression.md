@@ -1,7 +1,7 @@
 ---
 name: 原生组合优先，显式观测边界仍待证明通用价值
 summary: 相同设施演化中原生模块足以复用组合；函数说明引入同步成本，动态投影改变引用含义，显式身份检查能阻止部分错归但尚不证明需要通用Core。
-commit: "7-api-expression"
+commit: "8-api-review"
 experiments:
   - 13-api-expression
 scope:
@@ -12,7 +12,9 @@ scope:
 
 # 原生组合优先，显式观测边界仍待证明通用价值
 
-`commit` 引用包含本轮实验、研究记录与结论的标签 `7-api-expression`，可通过该标签复现。
+`commit` 引用本结论追加复盘限定的标签 `8-api-review`。初次实验、研究记录与原结论保留在标签 `7-api-expression`，可通过该标签复现；本次修订不改变实验实现。
+
+> **后续限定：[结论8](8-api-review.md)。** 本文保留原判断以追溯历史，但“转人工审查”仅生成标签，未控制动作；“原生基线维护负担最低”没有等价职责比较支持，撤回该排名；B的身份相等检查不证明观测当前有效。下文相关表述不再作为有效保证。下一轮进入条件以结论8为准，旧标签不移动。
 
 关联[案例1](../cases/1-heterogeneous-engineering-workspace.md)的接入、专用接口、替换、知识复用问题。完整[阶段A草案、B变化推演及C成本记录](../api-expression-study.md)先设计消费代码再实现；[实验13](../../tests/13-api-expression/demo.test.js)复用实验11设施和既有领域包，不修改历史实现、案例或结论。
 

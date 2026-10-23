@@ -102,3 +102,5 @@ node tests/13-api-expression/scenario.js
 ```
 
 场景输出保留证据的工作区临时目录，进程结束时均停止。本轮[结论7](documents/conclusions/7-api-expression.md)没有选定新架构：原生模块足以复用组合，显式观测边界可检查部分错归，但尚无证据支持新增通用Core；原有实现未重构。
+
+[批判复盘与下一轮边界（结论8）](documents/conclusions/8-api-review.md)进一步限定：身份相等不证明观测有效，冲突标签没有控制动作，维护成本未做等价比较。暂不稳定新增API；下一轮先检验失效或冲突证据能否在动作选择前真正改变行为。
