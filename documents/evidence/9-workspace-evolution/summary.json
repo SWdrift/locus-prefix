@@ -1,0 +1,175 @@
+{
+  "scope": "Single local host: real Git/files/Node/HTTP, bounded WMS fixture; not production or physical multi-host validation.",
+  "reproduce": "node tests/14-workspace-evolution/scenario.js",
+  "localArtifacts": "temp/workspace-evolution-6TArcu (not tracked; generated snapshots, not live resources)",
+  "accepted": true,
+  "stages": [
+    {
+      "stage": 0,
+      "name": "initial",
+      "status": "completed",
+      "checks": 4,
+      "failedChecks": []
+    },
+    {
+      "stage": 1,
+      "name": "access",
+      "status": "completed",
+      "checks": 6,
+      "failedChecks": []
+    },
+    {
+      "stage": 2,
+      "name": "delivery",
+      "status": "completed",
+      "checks": 4,
+      "failedChecks": []
+    },
+    {
+      "stage": 3,
+      "name": "gis",
+      "status": "completed",
+      "checks": 7,
+      "failedChecks": []
+    },
+    {
+      "stage": 4,
+      "name": "changes",
+      "status": "completed",
+      "checks": 9,
+      "failedChecks": []
+    },
+    {
+      "stage": 5,
+      "name": "knowledge",
+      "status": "completed",
+      "checks": 19,
+      "failedChecks": []
+    },
+    {
+      "stage": 6,
+      "name": "extension",
+      "status": "completed",
+      "checks": 12,
+      "failedChecks": []
+    }
+  ],
+  "sourceAudits": {
+    "mixedNewExpectedOldRuntime": "mismatch",
+    "mixedOldExpectedNewArtifactOldRuntime": "mismatch",
+    "oldWorldSelfConsistent": "consistent",
+    "newWorldSelfConsistent": "consistent"
+  },
+  "knowledge": {
+    "refusals": [
+      {
+        "scenario": "expired",
+        "primaryReason": "EXPIRED"
+      },
+      {
+        "scenario": "refuted-shortcut",
+        "primaryReason": "REFUTED_PROCEDURE"
+      },
+      {
+        "scenario": "persisted-edit",
+        "primaryReason": "REFUTED_PROCEDURE"
+      },
+      {
+        "scenario": "evidence-empty",
+        "primaryReason": "INVALID_RECORD"
+      },
+      {
+        "scenario": "evidence-missing",
+        "primaryReason": "EVIDENCE_UNVERIFIED"
+      },
+      {
+        "scenario": "evidence-modified",
+        "primaryReason": "EVIDENCE_UNVERIFIED"
+      },
+      {
+        "scenario": "evidence-record-removed",
+        "primaryReason": "NO_APPLICABLE_KNOWLEDGE"
+      },
+      {
+        "scenario": "action-time-expiry",
+        "primaryReason": "EXPIRED"
+      },
+      {
+        "scenario": "changed-conditions",
+        "primaryReason": "CONDITION_MISMATCH"
+      },
+      {
+        "scenario": "conflict",
+        "primaryReason": "CONFLICT"
+      }
+    ],
+    "validMutations": {
+      "environmentWrites": 1,
+      "restarts": 1
+    },
+    "coldReadMatches": true,
+    "persistedEdit": {
+      "coldMatchesMain": true,
+      "unchangedOnRefusal": true,
+      "mutations": {
+        "environmentWrites": 0,
+        "restarts": 0
+      }
+    },
+    "conflictBefore": {
+      "decision": "refuse",
+      "primaryReason": "CONFLICT",
+      "mutations": {
+        "environmentWrites": 0,
+        "restarts": 0
+      },
+      "unchanged": true
+    },
+    "conflictAfter": {
+      "decision": "execute",
+      "primaryReason": null,
+      "authorizedBy": [
+        "r-clear-override-restart-artifact-2"
+      ]
+    },
+    "conflictAfterMutations": {
+      "environmentWrites": 1,
+      "restarts": 1
+    }
+  },
+  "extension": {
+    "ready": true,
+    "layerCount": 3,
+    "mapCount": 3,
+    "wrongExpected": {
+      "ok": false,
+      "status": "not-ready",
+      "gatewayOk": false,
+      "gisOk": true,
+      "gisRetained": true
+    }
+  },
+  "resources": {
+    "closed": true,
+    "gisClosed": true,
+    "workspaceClosed": true,
+    "errors": []
+  },
+  "tests": {
+    "command": "pnpm test",
+    "passed": 87,
+    "failed": 0
+  },
+  "limits": [
+    "No Agent reliability benchmark",
+    "No equal-cost comparison with a new generic mechanism",
+    "Evidence hashes do not authenticate semantic truth",
+    "Pre-action validation is not a transaction or OS sandbox"
+  ],
+  "receiptLifecycle": {
+    "currentStatus": "closed",
+    "runningSnapshotStatus": "running",
+    "runningSnapshotMatchesHandoffHash": true,
+    "currentReceiptDiffersFromHistoricalSnapshot": true
+  }
+}

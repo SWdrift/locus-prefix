@@ -104,3 +104,15 @@ node tests/13-api-expression/scenario.js
 场景输出保留证据的工作区临时目录，进程结束时均停止。本轮[结论7](documents/conclusions/7-api-expression.md)没有选定新架构：原生模块足以复用组合，显式观测边界可检查部分错归，但尚无证据支持新增通用Core；原有实现未重构。
 
 [批判复盘与下一轮边界（结论8）](documents/conclusions/8-api-review.md)进一步限定：身份相等不证明观测有效，冲突标签没有控制动作，维护成本未做等价比较。暂不稳定新增API；下一轮先检验失效或冲突证据能否在动作选择前真正改变行为。
+
+## 持续演化工作空间
+
+[实验14](tests/14-workspace-evolution/demo.test.js)在同一工作空间依次运行原生基线、访问入口变化、源码构建与交付、有界WMS GIS、既有设施变化、动作前知识决策及独立Agent新增的只读交接组合：
+
+```sh
+node tests/14-workspace-evolution/scenario.js
+```
+
+CLI保留工作区内临时证据目录，结束时关闭全部实验资源。旧A/A、新B/B与新期望/旧运行分别判断；知识失效或冲突会实际阻止动作；交接包整体失败时保留其他设施证据。GIS是生成地图的本机协议替身，不是生产或物理多机验证。
+
+参见[演化记录](documents/workspace-evolution.md)、[成本审查](documents/evidence/9-workspace-evolution/cost-review.md)、[Agent发现记录](documents/evidence/9-workspace-evolution/agent-discovery.md)及[结论9](documents/conclusions/9-workspace-evolution.md)。本轮不发布新包或稳定通用Core。
