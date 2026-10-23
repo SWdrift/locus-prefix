@@ -1,13 +1,26 @@
 # Locus Prefix
 
-研究异构事物的共在与流畅，不预设必须由 JS/TS、统一 API 或独立 Core 实现。历史工程入口是显式模块驱动的本地任务工作台，不是插件框架或安全沙箱。
+**探索异构事物的共在与流畅；当前研究阶段已结项，保留可运行的工程零件、实验和可修正的知识。** Prefix 不是一个已经完成的统一元系统，也不是生产级运维平台。
 
-## 运行
+- **共在（Coexistence）**：设施、代码、对象、操作、知识、人和 Agent 保留自己的语义、接口、身份与生命周期，仍能建立联系与协作。
+- **流畅（Fluidity）**：发现、理解、引用、组合、执行与演化尽可能连续，减少不必要的转换、重复声明和人工接洽。
 
-Node.js 24、pnpm 11.24.0。所有命令在本工作区执行：
+起点是 GIS／DevOps 和 Agent 工程工作空间中的实际摩擦：信息分散在文件、工具、服务和人的经验里，知道一个名字，不等于找到了当前目标；脚本执行成功，不等于现场满足意图。JS/TS 的对象、引用、函数和模块曾是很有吸引力的共同媒介：同一份结构既能描述，也能参与执行。但实践与历史比较逐步限定了这个设想：**语言中的连接不会自动带来外部事实、因果历史、授权或可恢复执行的连接。**
+
+本阶段不再以形成独立 JS/TS 元系统、统一对象世界或 Locus Core 为预定终点。后续倾向于从具体任务出发，复用现有系统与 Agent Harness，在持续使用中检验新机制；**Locus Harness 是后续实践方向，不是本仓库已经实现的功能。** 这不证明通用 Core 无价值，也不证明原生脚本总体最优。
+
+## 从哪里读起
+
+1. **理解整个历程**：[项目回顾](documents/retrospective.md)——为何开始、做成什么、错在哪里、为何转向，以及仍未解决的问题。
+2. **运行与复用**：下文的快速开始、工程成果与演示；包文档给出具体契约。
+3. **查证研究判断**：[研究导航](#研究导航)——沿实验、结论及其后续限定阅读，不把历史记录当作当前保证。
+
+## 快速开始
+
+已验证环境：Windows、Node.js **24**（本次验收 v24.19.0）、pnpm **11.24.0**，另需本机 Git。其他平台未实际验证。所有命令在仓库根目录执行；演示只操作本工作区内的临时资产，并启动回环 HTTP 服务和本机子进程。
 
 ```sh
-pnpm install --offline --ignore-scripts
+pnpm install --ignore-scripts --frozen-lockfile
 pnpm locus list
 pnpm locus show workspace.check
 pnpm locus run workspace.inspect --allow filesystem:read
@@ -15,51 +28,56 @@ pnpm locus run workspace.check --input '{"script":"check:baseline"}' --allow fil
 pnpm test
 ```
 
-`check:baseline` 实际执行历史实验 1–3；`pnpm test` 执行全部实验。**不要在测试内部通过任务执行完整的 `pnpm test`，否则会递归运行自身。**
+有依赖缓存时可用 `pnpm install --offline --ignore-scripts --frozen-lockfile`。JSON 参数示例适用于保留单引号的 shell（如 PowerShell／sh）；在 cmd.exe 中须按其规则转义双引号。
 
-CLI 的 list/show/run 输出 JSON；任务开始前被拒绝或请求无效时退出码为 2，执行失败为 1，成功为 0。`pnpm` 自身可能在输出前打印脚本日志；程序需要纯 JSON 时，在完成安装后用 `node scripts/locus.js ...` 调用相同入口。
+`check:baseline` 只执行历史实验 1–3；`pnpm test` 使用 Node test runner 执行全部实验。**不要在测试内部通过任务执行完整的 `pnpm test`，否则会递归运行自身。** 当前锁定的外部实验依赖为 Automerge 3.5.0、Vue reactivity 3.5.44；SQLite 使用 Node 内置模块。
 
-任务已完成但结果无法编码为 JSON 时，CLI 退出 1，并报告 `phase: "report"` 与真实 `executionStatus`；这不表示任务没执行，不能据此盲目重试。
+CLI 的 `list/show/run` 输出 JSON。pnpm 可能先打印脚本日志，需要纯 JSON 时，在安装后使用相同入口：
 
-默认不会自动授权：权限用重复的 `--grant` 指定，允许的副作用用重复的 `--allow` 指定。`workspace.check` 的 script 来自当前 `package.json`，不是任意 shell 命令参数。脚本本身仍然是可信代码，可调用外部工具并产生其他副作用；授权不是 OS 级权限控制，不能阻止脚本越界。
+```sh
+node scripts/locus.js list
+```
 
-## CI/CD：运行标签相同，实际构建就正确吗？
+退出码为 0（任务成功）、1（执行或报告失败）、2（调用被拒绝／请求无效）。任务完成后若结果不能编码为 JSON，报告为 `phase: "report"` 并保留 `executionStatus`，**不能据此认为任务未执行并盲目重试**。
 
-新增的完整实验回答这个问题，而不是只运行健康检查。需要本机 Git：
+## 已实现的工程成果与保证边界
+
+这些是工作区包及其公开接口，不是已经发布、经过生产验证的产品。
+
+| 成果 | 已实现、可复用的能力 | 不能据此推导 |
+| --- | --- | --- |
+| [`@locus/tasks`](packages/tasks/README.md) | 普通对象／函数描述任务，发现、显式授权检查、单次执行、保留步骤及部分失败 | 安全沙箱、自动重试／补偿、调度或持久恢复 |
+| [`@locus/workspace`](packages/workspace/README.md) 与 [CLI](scripts/locus.js) | 读取真实工作区配置，执行已有 pnpm 脚本，记录 argv、退出码及输出 | 统一资源发现、配置原子快照；YAML 原文展示不等于已解释成员集合 |
+| [`@locus/deployment-audit`](packages/deployment-audit/README.md) | 独立采集 Git／HTTP 证据，区分声明、构建见证及指定 payload，返回一致／冲突／缺证据 | 完整制品认证、可重复构建、进程全部代码或业务正确；审计成功不等于允许发布 |
+| [`@locus/operational-knowledge`](packages/operational-knowledge/README.md) | 在 Markdown 中保留原判断与修正，绑定证据字节，按条件和时效重新筛选 | 语义真值认证、作者认证、并发追加安全或通用冲突解决 |
+
+**信任边界**：任务模块与脚本都是可信代码。`--grant` 和 `--allow` 是协作声明，不是 OS 访问控制；`list/show` 已会导入模块。哈希绑定字节，不证明来源可信或推论正确；步骤记录不能证明重试安全。包可以直接导入，不必通过 Locus 任务目录调用。
+
+### 三条值得实际运行的路径
 
 ```sh
 pnpm demo:release
 pnpm locus show deployment.audit
-```
-
-演示用真实 Git 提交、文件交付和本机 HTTP 目标复现：事件指向 A，实际构建工作树为 B，标签和健康仍能全绿；构建现场见证会拒绝该结果。干净检出 A 重建后通过，再将同一制品交付另一角色并重新观测。
-
-这是单机角色模拟，不是跨物理机器部署。实际只读调查只有版本元数据、没有完整源码/制品见证时，返回 `incomplete`，不声称现场已经部署错。具体操作接口见[部署审计包](packages/deployment-audit/README.md)，证据和错误结论见[结论5](documents/conclusions/5-release-lineage.md)。
-
-任务 `deployment.audit` 的输入为期望版本、运行元数据 URL、可选制品见证与 payload URL；需要 `--grant deployment:inspect --allow network:read`。审计任务执行成功不等于允许发布，应读取 `value.assessment.verdict`。公开材料不保存真实工程名称、地址或私有身份映射。
-
-## 全流程：交付、配置排障、真相更新
-
-```sh
 pnpm demo:operations
+node tests/14-workspace-evolution/scenario.js
 ```
 
-实际启动匿名的独立 Node 进程，完成 Git 构建、制品与配置交付、失败请求、证据辅助诊断、修正覆盖并重启、再验收。随后实际更新 Markdown 运行手册，保留错误判断，提交并克隆知识与证据；第二个实例从克隆后的文档检索并选择已验证的方法。
+- **发布取证**：真实创建 Git 提交 A/B，让事件与标签指向 A、实际构建来自 B，健康仍通过；构建见证判为 `mismatch`。干净检出 A 重建后 `consistent`，交付另一角色必须重新观测。只检查指定 payload，不代表整个发布正确。[结论5](documents/conclusions/5-release-lineage.md)区分公开反例与无法公开重放的脱敏现场调查；后者因缺证据为 `incomplete`，并未证明现场部署错误。
+- **交付—排障—知识复用**：同一制品审计一致，但请求 502；清除配置覆盖文件仍 502，重启后 200。实际更新运行手册、提交并克隆证据，第二个实例按克隆后的记录选择方法。[结论6](documents/conclusions/6-operations-truth-loop.md)解释全部边界；`environment.json` 是文件配置层，不是 OS 环境变量注入实验。
+- **持续演化**：同一工作空间经历入口替换、源码／交付变化、有界 WMS、知识动作门禁及新 Agent 的只读交接组合。旧 A/A、新 B/B 分别可成立，新期望 B 与旧运行 A 被拒绝；失效／冲突知识在动作前阻止受控写入；部分设施失败仍保留其他证据。[结论9](documents/conclusions/9-workspace-evolution.md)说明这是单次 Agent 发现证据，不是通用发现机制或可靠性测量。
 
-演示输出 `artifactDirectory`：打开其中的 `knowledge/runbook.md`、`events.json` 和 `evidence/` 即可检查全链路。制品、目标配置和源码也保留在该目录下，所有子进程已停止；`temp/` 不进入 Git。自动测试使用独立目录并清理。
+这些是**单机角色／多进程受控实验**，不是跨物理机器、真实 SSH、生产 CI 或生产 GIS 验证。WMS 是生成真实 PNG 的有限协议替身，不是完整 OGC 兼容实现。
 
-当前是单机多进程、本地流水线，不是物理多机或生产发布。`environment.json` 是部署环境配置层，不代表验证了操作系统环境变量注入。诊断为可解释领域规则，证据哈希不是自动真理认证。
+重跑实验14会执行已经保存的 Agent 交接消费者，验证其行为；不会重新发起一次 Agent 探索。历史发现过程见上述记录，不能由场景重跑推导新的 Agent 成功率。
 
-参见[全流程结论](documents/conclusions/6-operations-truth-loop.md)与本次实际生成的[运行手册快照](documents/evidence/6-operations-loop/knowledge/runbook.md)。
+`demo:release` 清理自己的临时资产；`demo:operations` 输出 `artifactDirectory`，保留实际 `knowledge/runbook.md`、`events.json` 和 `evidence/`；实验14输出临时证据目录并在结束时关闭资源。目录位于被忽略的 `temp/`。自动测试清理自己的实例，不依赖旧临时目录。仓库中的[历史证据](documents/evidence/)是已结束运行的快照，不是在线状态或永久有效的知识。
 
-## 添加任务
+### 添加可信本地任务
 
-根目录 `locus.tasks.js` 是显式组合入口，default export 一个 `({ root }) => definitions` 函数。CLI 以当前工作目录为 root，读取其中的同名模块；模块可使用已有包或直接组合普通函数，不需要修改 CLI。
+根目录 [`locus.tasks.js`](locus.tasks.js) 是显式组合入口，default export `({ root }) => definitions`；CLI 以当前工作目录为 root 读取该模块。不需要修改 CLI 或继承基类：
 
 ```js
 import { createWorkspaceTasks } from '@locus/workspace';
-
-const format = input => `report:${input.subject}`;
 
 export default ({ root }) => [
   ...createWorkspaceTasks({ root }),
@@ -71,76 +89,41 @@ export default ({ root }) => [
     validate(input) {
       if (typeof input?.subject !== 'string') throw new Error('subject required');
     },
-    run: input => format(input),
+    run: input => `report:${input.subject}`,
   },
 ];
 ```
 
-模块导入发生在 list/show 阶段，因此仅加载可信模块。描述不是沙箱；validate 应无副作用。CLI 使用 JSON 传参和输出，任务结果和证据应适合 JSON 表达。包内使用普通 JS 值，不建立统一领域 Schema。
+这是自行组合时的示例，不替换仓库已有的部署审计任务。`validate` 应无副作用；CLI 的描述与结果须适合 JSON 表达。普通 JS 值不需要进入统一领域 Schema。完整调用契约见[任务包](packages/tasks/README.md)。
 
-## 包与证据
+## 研究导航
 
-- [`@locus/tasks`](packages/tasks/README.md)：描述发现、显式授权、单次执行与步骤结果。
-- [`@locus/workspace`](packages/workspace/README.md)：读取真实配置、通过 pnpm 运行现有脚本、保留执行证据。
-- [`@locus/deployment-audit`](packages/deployment-audit/README.md)：发布源码绑定、内容证据及缺证据判定。
-- [`@locus/operational-knowledge`](packages/operational-knowledge/README.md)：证据绑定的 Markdown 修正与有条件复用。
-- [`tests/4-task-execution/`](tests/4-task-execution/demo.test.js)：调用边界与部分成功。
-- [`tests/5-workspace-integration/`](tests/5-workspace-integration/demo.test.js)：真实配置和子进程，以及配置变化。
-- [`tests/6-cli/`](tests/6-cli/demo.test.js)：实际 CLI 的发现、拒绝、失败、修正和新增任务。
-- [`tests/8-http-evidence/`](tests/8-http-evidence/demo.test.js)、[`9-release-contract/`](tests/9-release-contract/demo.test.js)、[`10-source-binding/`](tests/10-source-binding/demo.test.js)：取证、判定与完整交付反例。
-- [`tests/11-operations-loop/`](tests/11-operations-loop/demo.test.js)、[`12-evidence-notebook/`](tests/12-evidence-notebook/demo.test.js)：基础设施到 debug、实际文档修正及知识复用。
-- [案例1](documents/cases/1-heterogeneous-engineering-workspace.md)：长期问题域。
+按问题而非全部实验逐项阅读；每个实验的 `demo.test.js` 是可运行实例与断言入口，结论文档的 front matter 指向复现标签。
 
-历史 `src/` 与实验 1–3 保留为第一轮基线；新包不是它们的兼容层。尚未证明的共享机制不提炼为 Core。当前不提供自动重试、自动补偿、断点续跑或永久执行历史。
+| 问题与转折 | 实验／实现入口 | 结论与必要限定 |
+| --- | --- | --- |
+| 原生身份、操作与经验需要什么额外机制？ | [1 身份](tests/1-id/demo.test.js)、[2 操作](tests/2-ops/demo.test.js)、[3 经验](tests/3-exp/demo.test.js)、历史 [src](src/) | [1 基线](documents/conclusions/1-core.md)；身份注册的必要性表述被[2](documents/conclusions/2-workspace-tasks.md)收窄 |
+| 可运行的统一入口是否已经有工程价值？ | [4 任务](tests/4-task-execution/demo.test.js)、[5 工作区](tests/5-workspace-integration/demo.test.js)、[6 CLI](tests/6-cli/demo.test.js) | [2 工程闭环](documents/conclusions/2-workspace-tasks.md)、[3 价值审查](documents/conclusions/3-operational-experiments.md)、[4 范围与脱敏](documents/conclusions/4-infrastructure-scope.md) |
+| 什么证据足以支持发布与配置判断？ | [8 HTTP](tests/8-http-evidence/demo.test.js)、[9 判定](tests/9-release-contract/demo.test.js)、[10 源码绑定](tests/10-source-binding/demo.test.js)；[11 全流程](tests/11-operations-loop/demo.test.js)、[12 笔记本](tests/12-evidence-notebook/demo.test.js) | [5 发布溯源](documents/conclusions/5-release-lineage.md)、[6 真相更新](documents/conclusions/6-operations-truth-loop.md) |
+| API 更短、身份相等、冲突有标签，是否足够？ | [13 API 对照](tests/13-api-expression/demo.test.js)、[消费端研究](documents/api-expression-study.md) | [7 初次判断](documents/conclusions/7-api-expression.md)必须连同[8 撤回与限定](documents/conclusions/8-api-review.md)阅读：没有等价成本排名，冲突标签当时未控制动作 |
+| 持续变化与新 Agent 能否复用现有设施？ | [14 连续演化](tests/14-workspace-evolution/demo.test.js)、[研究记录](documents/workspace-evolution.md)、[成本审查](documents/evidence/9-workspace-evolution/cost-review.md)、[发现记录](documents/evidence/9-workspace-evolution/agent-discovery.md) | [9 局部复用与状态责任](documents/conclusions/9-workspace-evolution.md)；没有长期成本或任意 Agent 成功率证据 |
+| 因果合并、派生判断、本地事务能否替代彼此？ | [15 Automerge](tests/15-causal-history/demo.test.js)、[16 Vue／SQLite](tests/16-derived-decisions/demo.test.js) | [10 语义边界](documents/conclusions/10-semantic-boundaries.md)：收敛不是真理，图外变化需摄取，本地意图不自动约束外部动作 |
+| 共在与流畅是否必须来自一个新系统？ | [范式比较](documents/paradigm-study.md)、[因果历史](documents/causal-history-study.md)、[执行与互操作](documents/execution-history-study.md) | [11 历史路径](documents/conclusions/11-coexistence-lineage.md)：共同活世界、窄接口联邦和强历史／执行基底仍是竞争方向 |
 
-## API 表达与演化研究
+长期问题域见[案例1：持续演化的工程工作空间](documents/cases/1-heterogeneous-engineering-workspace.md)；它定义研究情境，不是已完成的产品规格。全部[结论](documents/conclusions/)保留历史判断及相互修正关系。Nix、Pulumi、Temporal、Smalltalk／Self、Unison、Goblins 等在本仓只做文献／源码研究，**没有运行这些外部引擎**；Automerge、Vue、SQLite 则有上述实际实验。
 
-[消费端研究记录](documents/api-expression-study.md)从原生基线出发，比较函数说明、显式观测与动态投影，包含先设计的完整草案、共同变化推演和实际成本。[实验13](tests/13-api-expression/demo.test.js)复用既有设施，检验连接/实例替换、旧证据、闭包依赖和相反知识：
+进一步复现语义反例：
 
 ```sh
 node tests/13-api-expression/scenario.js
-```
-
-场景输出保留证据的工作区临时目录，进程结束时均停止。本轮[结论7](documents/conclusions/7-api-expression.md)没有选定新架构：原生模块足以复用组合，显式观测边界可检查部分错归，但尚无证据支持新增通用Core；原有实现未重构。
-
-[批判复盘与下一轮边界（结论8）](documents/conclusions/8-api-review.md)进一步限定：身份相等不证明观测有效，冲突标签没有控制动作，维护成本未做等价比较。暂不稳定新增API；下一轮先检验失效或冲突证据能否在动作选择前真正改变行为。
-
-## 持续演化工作空间
-
-[实验14](tests/14-workspace-evolution/demo.test.js)在同一工作空间依次运行原生基线、访问入口变化、源码构建与交付、有界WMS GIS、既有设施变化、动作前知识决策及独立Agent新增的只读交接组合：
-
-```sh
-node tests/14-workspace-evolution/scenario.js
-```
-
-CLI保留工作区内临时证据目录，结束时关闭全部实验资源。旧A/A、新B/B与新期望/旧运行分别判断；知识失效或冲突会实际阻止动作；交接包整体失败时保留其他设施证据。GIS是生成地图的本机协议替身，不是生产或物理多机验证。
-
-参见[演化记录](documents/workspace-evolution.md)、[成本审查](documents/evidence/9-workspace-evolution/cost-review.md)、[Agent发现记录](documents/evidence/9-workspace-evolution/agent-discovery.md)及[结论9](documents/conclusions/9-workspace-evolution.md)。本轮不发布新包或稳定通用Core。
-
-## 历史比较与根本假设挑战
-
-[研究总览](documents/paradigm-study.md)审查十项根本假设，比较无中心原生组合、因果协作、查询/变化驱动及外部执行引擎四种构想；[因果历史专题](documents/causal-history-study.md)与[执行/互操作专题](documents/execution-history-study.md)记录一手来源、历史背景、失败路线及组合边界。
-
-本阶段不扩建工作台。使用成熟 Automerge、Vue reactivity 与 Node 内置 SQLite 检验两个关键分歧：
-
-```sh
-pnpm install --offline --ignore-scripts --frozen-lockfile
-node --test tests/15-causal-history/demo.test.js tests/16-derived-decisions/demo.test.js
+node tests/15-causal-history/scenario.js
 node tests/16-derived-decisions/scenario.js
 ```
 
-首次检出没有本地依赖缓存时，安装命令去掉 `--offline`。Node.js 24；实验依赖锁定于根 devDependencies。
+实验13保留工作区临时材料并停止进程；实验15在内存运行；实验16创建并清理临时数据库和实际文件副作用。单独运行任意断言入口可用 `node --test tests/<编号-语义>/demo.test.js`。需要历史版本时，在独立检出中使用结论 `commit` 字段的标签，并按该版本说明运行，不将当前依赖或测试数量倒填为历史证据。
 
-- [实验15](tests/15-causal-history/demo.test.js)：并发修订的因果历史、冲突与快照投影，不把收敛当作知识正确。
-- [实验16](tests/16-derived-decisions/demo.test.js)：原生重算、响应式派生与关系查询；显式演示图外失效和本地事务不覆盖独立执行器。
-- [结论10](documents/conclusions/10-semantic-boundaries.md)：新的候选路径是“可分叉探索与有界承诺分离”，不是新增通用对象模型。尚未证明独立框架必要，也未证明任一方案总体更优。
+## 阶段结束之后
 
-旧实验、案例及结论保持原样；新文档通过链接限定旧判断，不把历史验证改写为本轮新证据。
+值得继承的是领域取证与判定、窄函数边界、证据绑定且可撤回的知识、变化与部分失败的可执行反例，以及敢于修正问题定义的研究方法；不是一套必须延续的架构。
 
-## 共在与流畅的历史路径：文献研究
-
-核对 Smalltalk／Self、Unix、Unison、Cambria、Webstrates、Ink & Switch、OGC 与 Terraform／Temporal 等一手资料，区分文献事实、本仓既有实测与推论。本轮没有新增实验、没有运行外部引擎，也不修改既有结论的实测范围。
-
-- [结论11](documents/conclusions/11-coexistence-lineage.md)：共在不要求同一对象世界；流畅性须按任务与使用者评价。候选研究视角转为跨边界的语义连续性与有效表达成本，但不选定架构，也不据此新增 Core。
-
-机制细节见[范式研究](documents/paradigm-study.md)与[执行/互操作研究](documents/execution-history-study.md)。
+后续 Locus Harness 实践可以先组合现有工具、协议和文档，记录实际任务的上下文重建、转换、验证与恢复成本，再判断需要什么共享机制。仍待验证的重点包括：长期人／Agent 总成本、离线反证与有界授权的关系、版本前提如何延伸到真实执行器、成熟工作流的崩溃恢复，以及共同活环境是否在特定任务中更值得其代价。详见[回顾中的未解问题](documents/retrospective.md#尚未解决的问题与下一段实践)。本阶段结项不关闭这些问题，也不把它们改名为 Prefix 已交付的能力。
