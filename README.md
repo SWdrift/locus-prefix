@@ -136,3 +136,11 @@ node tests/16-derived-decisions/scenario.js
 - [结论10](documents/conclusions/10-semantic-boundaries.md)：新的候选路径是“可分叉探索与有界承诺分离”，不是新增通用对象模型。尚未证明独立框架必要，也未证明任一方案总体更优。
 
 旧实验、案例及结论保持原样；新文档通过链接限定旧判断，不把历史验证改写为本轮新证据。
+
+## 共在与流畅的历史路径：文献研究
+
+核对 Smalltalk／Self、Unix、Unison、Cambria、Webstrates、Ink & Switch、OGC 与 Terraform／Temporal 等一手资料，区分文献事实、本仓既有实测与推论。本轮没有新增实验、没有运行外部引擎，也不修改既有结论的实测范围。
+
+- [结论11](documents/conclusions/11-coexistence-lineage.md)：共在不要求同一对象世界；流畅性须按任务与使用者评价。候选研究视角转为跨边界的语义连续性与有效表达成本，但不选定架构，也不据此新增 Core。
+
+机制细节见[范式研究](documents/paradigm-study.md)与[执行/互操作研究](documents/execution-history-study.md)。
